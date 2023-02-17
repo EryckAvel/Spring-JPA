@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +22,9 @@ public interface CidadeRepository extends JpaRepository<Cidade, Long> {
 
     @Query("SELECT c FROM Cidade c")
     Page<Cidade> paginarCidade(Pageable pageable);
+
+    @Query(nativeQuery = true, value = "select * from cidade as c where c.nome=:nome")
+    Optional<Cidade> buscarCidadeNomeNativo(@Param("nome") String nome);
 
 
 }

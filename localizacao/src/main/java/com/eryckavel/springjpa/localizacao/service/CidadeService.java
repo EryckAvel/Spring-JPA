@@ -8,6 +8,7 @@ import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -61,9 +62,20 @@ public class CidadeService {
         }
     }
 
+    public ResponseEntity<CidadeDTO> buscaNativa(String nome) {
+        try {
+            Cidade cidade = repository.buscarCidadeNomeNativo(nome).orElseThrow();
+            var dto = new CidadeDTO(cidade);
+            return ResponseEntity.status(HttpStatus.OK).body(dto);
+        }catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Cidade não encontrada!");
+        }
+    }
+
     public void copiarDTOparaEntidade(Cidade entidade, CidadeDTO dto){
         entidade.setNome(dto.getNome());
         entidade.setHabitantes(dto.getHabitantes());
     }
+
 
 }

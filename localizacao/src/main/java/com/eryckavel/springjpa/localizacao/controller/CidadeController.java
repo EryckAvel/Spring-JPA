@@ -22,6 +22,11 @@ public class CidadeController {
         return service.listar();
     }
 
+    @GetMapping("/nativo/{nome}")
+    public ResponseEntity<CidadeDTO> buscarCidadeNomeNativo(@PathVariable("nome") String nome){
+        return service.buscaNativa(nome);
+    }
+
     @GetMapping("/paginacao")
     public ResponseEntity<List<CidadeDTO>> paginarCidades(){
         return service.paginar();
