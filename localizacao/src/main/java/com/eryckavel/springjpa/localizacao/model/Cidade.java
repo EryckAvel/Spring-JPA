@@ -11,10 +11,9 @@ import java.util.Objects;
 public class Cidade {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_cidade")
     private Long id;
-    @Column(name = "nome", length = 100, unique = true)
+    @Column(name = "nome", length = 100)
     private String nome;
     @Column(name = "qtd_habitantes")
     private Long habitantes;
